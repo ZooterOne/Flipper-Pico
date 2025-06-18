@@ -7,6 +7,7 @@ import fontio
 
 from displayio import Group
 from terminalio import FONT
+from time import sleep
 
 from adafruit_displayio_layout.layouts.grid_layout import GridLayout
 from adafruit_display_text import label
@@ -60,9 +61,10 @@ def __runMenu(menus: List[(str, Callable)],
     display = Group(x=0,
                     y=PicoLCD.HEIGHT - picoLCD.height_without_title)
     picoLCD.screen.append(display)
-    menu_grid = __generateMenu(picoLCD, menus, font)
+    menu_grid = __generateMenu(menus, picoLCD, font)
     active_menu = 0
     display.append(menu_grid)
+    BUTTON_WAIT_TIME = 0.25
     while True:
         if picoLCD.isActionButtonPressed():
             picoLCD.screen.remove(display)
@@ -70,6 +72,20 @@ def __runMenu(menus: List[(str, Callable)],
                             PicoLCD.WIDTH, picoLCD.height_without_title)
             menus[active_menu][1]()
             break
+        if picoLCD.isDownButtonPressed():
+            arrow = menu_grid.pop_content((0, active_menu))
+            active_menu = (active_menu + 1) % len(menus)
+            menu_grid.add_content(arrow,
+                                  grid_position=(0, active_menu),
+                                  cell_size=(1, 1))
+            sleep(BUTTON_WAIT_TIME)
+        if picoLCD.isUpButtonPressed():
+            arrow = menu_grid.pop_content((0, active_menu))
+            active_menu = (active_menu - 1) % len(menus)
+            menu_grid.add_content(arrow,
+                                  grid_position=(0, active_menu),
+                                  cell_size=(1, 1))
+            sleep(BUTTON_WAIT_TIME)
 
 
 def run(menus: List[(str, Callable)],
@@ -82,5 +98,5 @@ def run(menus: List[(str, Callable)],
     :param fontio.FontProtocol font: the font to use to display text.
     '''
     while True:
-        __runMenu(picoLCD, menus, font)
+        __runMenu(menus, picoLCD, font)
 

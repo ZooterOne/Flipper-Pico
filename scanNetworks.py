@@ -7,16 +7,17 @@ import fontio
 
 from displayio import Group
 from terminalio import FONT
-from wifi import radio
+from wifi import radio, AuthMode
 
 from adafruit_displayio_layout.layouts.grid_layout import GridLayout
 from adafruit_display_shapes.rect import Rect
 from adafruit_display_text import label
 
 
-def __getAvailableNetworks() -> List[(str, int)]:
+def __getAvailableNetworks(openNetworksOnly: bool) -> List[(str, int)]:
     '''
     Get a list of available networks as (ssid, signal strength).
+    :param bool openNetworksOnly: only get Open networks.
     :return: list of available networks as (ssid, signal strength).
     :rtype: List[(str, int)]
     '''
@@ -24,6 +25,8 @@ def __getAvailableNetworks() -> List[(str, int)]:
     radio.enabled = True
     for network in radio.start_scanning_networks():
         if not network.ssid:
+            continue
+        if openNetworksOnly and not AuthMode.OPEN in network.authmode:
             continue
         value = network.rssi if network.ssid not in scanned_networks else max(scanned_networks[network.ssid], network.rssi)
         scanned_networks[network.ssid] = value
@@ -103,7 +106,7 @@ def displayAvailableNetworks(picoLCD: PicoLCD.LCD,
     :param fontio.FontProtocol font: the font to use to display text.
     '''
     while True:
-        networks = __getAvailableNetworks()
+        networks = __getAvailableNetworks(False)
         display = Group(x=0,
                         y=PicoLCD.HEIGHT - picoLCD.height_without_title)
         picoLCD.screen.append(display)

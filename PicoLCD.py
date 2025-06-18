@@ -62,6 +62,10 @@ class LCD():
         self.__back_button.switch_to_input(pull=Pull.UP)
         self.__action_button = DigitalInOut(A)
         self.__action_button.switch_to_input(pull=Pull.UP)
+        self.__up_button = DigitalInOut(UP)
+        self.__up_button.switch_to_input(pull=Pull.UP)
+        self.__down_button = DigitalInOut(DOWN)
+        self.__down_button.switch_to_input(pull=Pull.UP)
 
 
     def setTitle(self, title: str, color: int,
@@ -110,3 +114,21 @@ class LCD():
         :rtype: bool
         '''
         return self.__action_button.value == BUTTON_PRESSED_STATE
+
+
+    def isUpButtonPressed(self) -> bool:
+        '''
+        Gets if the up button is currently pressed.
+        :return: True if the button is pressed, False otherwise.
+        :rtype: bool
+        '''
+        return self.__up_button.value == BUTTON_PRESSED_STATE
+
+
+    def isDownButtonPressed(self) -> bool:
+        '''
+        Gets if the down button is currently pressed.
+        :return: True if the button is pressed, False otherwise.
+        :rtype: bool
+        '''
+        return self.__down_button.value == BUTTON_PRESSED_STATE
