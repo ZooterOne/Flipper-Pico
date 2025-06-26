@@ -1,1 +1,2 @@
-MACCAS_WIFI_SSID = "Maccas Free Wi-Fry"
+# SSID of a known Wifi Access Point to mock
+KNOWN_WIFI_AP_SSID = "Maccas Free Wi-Fry"

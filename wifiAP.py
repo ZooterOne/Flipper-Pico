@@ -1,12 +1,11 @@
 '''
-Defines functions to mock Maccas Wifi and display connected devices.
+Defines functions to setup Wifi Access Point and display connected devices.
 '''
 
 import PicoLCD
 import fontio
 
 from displayio import Group
-from os import getenv
 from terminalio import FONT
 from wifi import radio
 
@@ -81,15 +80,16 @@ def __displayDevices(devices: List[(str, str)],
     display.append(grid)
 
 
-def mockMaccas(picoLCD: PicoLCD.LCD,
-               font: fontio.FontProtocol=FONT) -> None:
+def setupAP(ssid: str, picoLCD: PicoLCD.LCD,
+            font: fontio.FontProtocol=FONT) -> None:
     '''
-    Setup a fake Maccas Wifi and monitor connected devices.
+    Setup a Wifi Acess Point and monitor connected devices.
+    :param str ssid: the ssid to setup.
     :param PicoLCD.LCD picoLCD: the screen to display the data onto.
     :param fontio.FontProtocol font: the font to use to display text.
     '''
     radio.enabled = True
-    radio.start_ap(ssid=getenv('MACCAS_WIFI_SSID'), password='')
+    radio.start_ap(ssid=ssid, password='')
     while True:
         connected_devices = __getConnectedDevices()
         display = Group(x=0,
