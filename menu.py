@@ -49,9 +49,9 @@ def __generateMenu(menus: List[(str, Callable)],
     return grid
 
 
-def __runMenu(menus: List[(str, Callable)],
-              picoLCD: PicoLCD.LCD,
-              font: fontio.FontProtocol) -> None:
+def runMenu(menus: List[(str, Callable)],
+            picoLCD: PicoLCD.LCD,
+            font: fontio.FontProtocol) -> None:
     '''
     Run the menu given by a collection of (string, function).
     :param List[(str, Callable)] menus: list of menu lines to display.
@@ -88,9 +88,9 @@ def __runMenu(menus: List[(str, Callable)],
             sleep(BUTTON_WAIT_TIME)
 
 
-def run(menus: List[(str, Callable)],
-        picoLCD: PicoLCD.LCD,
-        font: fontio.FontProtocol=FONT) -> None:
+def runLoop(menus: List[(str, Callable)],
+            picoLCD: PicoLCD.LCD,
+            font: fontio.FontProtocol=FONT) -> None:
     '''
     Indefinitely run the menu given by a collection of (string, function).
     :param List[(str, Callable)] menus: list of menu lines to display.
@@ -98,5 +98,4 @@ def run(menus: List[(str, Callable)],
     :param fontio.FontProtocol font: the font to use to display text.
     '''
     while True:
-        __runMenu(menus, picoLCD, font)
-
+        runMenu(menus, picoLCD, font)
