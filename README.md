@@ -39,10 +39,15 @@ Features:
  1. Download the latest stable [Circuit Python for Raspberry Pi Pico W](https://circuitpython.org/board/raspberry_pi_pico_w/).
  2. Follow the [instructions](https://learn.adafruit.com/pico-w-wifi-with-circuitpython/installing-circuitpython) to install Circuit Python on the Raspberry Pi Pico.
  3. Download latest [Circuit Python libraries bundle](https://circuitpython.org/libraries).
- 4. Unzip the bundle file and from Thonny, drag & drop the following files to the Raspberry Pi Pico to install the necessary libraries:
-     - boom.
- 5. From Thonny, drag & drop all the **.py** and **.toml** files to the Raspberry Pi Pico.
- 6. Plug the Raspberry Pi Pico to a power source or target computer. 
+ 4. Unzip the bundle file and from Thonny, drag & drop the following files or folders to the Raspberry Pi Pico to install the necessary libraries:
+     - `adafruit_displayio_layout`.
+     - `adafruit_display_shapes`.
+     - `adafruit_display_text`.
+     - `adafruit_hid`.
+     - `adafruit_st7789.mpy`.
+ 5. Clone the repository: `git clone https://github.com/ZooterOne/Flipper-Pico`.
+ 6. From Thonny, drag & drop all the **.py** and **.toml** files from the repository to the Raspberry Pi Pico.
+ 7. Plug the Raspberry Pi Pico to a power source or target computer. 
 
 # :pager: Demo
 
