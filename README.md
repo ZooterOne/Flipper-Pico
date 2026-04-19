@@ -29,7 +29,7 @@ Features:
 
  * Press joystick during boot to show the Raspberry Pi Pico as an USB drive _(default behaviour of the board, disabled by our program to enable USB HID for Bad USB Attacks)_.
  * Joystick to navigate through the menu and A button to validate, B button to go back.
- * Scan available Wifi networks _(2.4 GHz only, Raspberry Pi Pico limitation)_.
+ * Scan available Wifi networks _(2.4 GHz only, Raspberry Pi Pico limitation)_, including signal strength.
  * Mock a known Wifi Access Point and monitor all connections.
  * A playful Bad USB attack to [show how important it is to lock screen](https://eyelockmyscreen.com/).
  * Reverse shell Bad USB Attack.
@@ -47,7 +47,9 @@ Features:
      - `adafruit_st7789.mpy`.
  5. Clone the repository: `git clone https://github.com/ZooterOne/Flipper-Pico`.
  6. From Thonny, drag & drop all the **.py** and **.toml** files from the repository to the Raspberry Pi Pico.
- 7. Plug the Raspberry Pi Pico to a power source or target computer. 
+ 7. Update **settings.toml** with known Wifi Access Point to mock, and reverse shell listener IP address.
+ 8. Setup your reverse shell listener if needed (_you should know how to do this_).
+ 9. Plug the Raspberry Pi Pico to a power source or target computer. 
 
 # :pager: Demo
 
